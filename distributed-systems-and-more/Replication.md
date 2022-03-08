@@ -150,3 +150,5 @@ Guarantee that if a sequence of writes happens in a certain order, then anyone r
 This guarantee can be in danger in case when a different database partitions operate independently so there is no global ordering of writes.
 
 One solution can be that casually dependent writes are always written to the same partition.
+
+![img](_assets/)

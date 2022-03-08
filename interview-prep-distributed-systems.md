@@ -1,16 +1,5 @@
-# Interview Preparation
-**Duration**: 3 months
-**Study time**: morning 1.5 hours and afternoon where possible
+# Interview Prep - Distributed Systems and More
 
-## Plan
-1. Review basic datastructures
-3. Review core graph algorithms - BFS and DFS
-2. Review core sort algorithms
-3. Start algorithms practice
-4. ....
-
-
-## Distributed Systems and More
 Unix
 - [ ] file descriptors
 - [ ] NAT tables, conntrack tables
@@ -33,9 +22,9 @@ Protocols:
 Big Ideas (Based on Designing Data Intensive Application ♥️):
 - [ ] Considerations
 - [ ] Encoding and evloution
-- [ ] Replication
+- [x] Replication
 - [ ] Partitioning
-- [ ] Transactions
+- [x] Transactions
 - [ ] Consistency and consensus
 - [ ] Batch processing vs stream processing
 - [ ] Faults of distributed systems

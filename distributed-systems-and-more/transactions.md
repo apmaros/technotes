@@ -130,3 +130,4 @@ In 2PL several readers can read the object as long as no one is writing to it. A
 2PL provides serializability, it protects against all the race conditions we have discussed earlier. including lost updates and write skew.
 
 ## Serializable Snapshot Isolation (SSI)
+*TODO*

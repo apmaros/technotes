@@ -1,11 +1,9 @@
 # Replication
 Replication means keeping a copy of the same data on multiple machines that are connected via a network.
-
 ## Purposes
 - high availability - the system can tolerate a failure of one or more nodes
 - latency - geographical colocation reduces the client's read latency
 - scalability - spreading reads and potentially writing to replicas allows a database to handle more volume
-
 ## Challenges
 The concept of replication is simple, but the execution is complex and has many challenges. The difficulty in replication is in handling the change to a replicated dataset.
 
@@ -20,7 +18,7 @@ These challenges require careful design of replication strategy.
 ## Replication Approaches
 Each node storing a copy of a database is called a *replica*. The challenge is to ensure that all data are stored on all replicas and that they are up to date. There are multiple approaches to solve this challenge. Based on the latency, scale, and availability requirements different solution is a better or worse suited solution.
 
-For example, handling a replicated database with bank transactions pays high attention to data consistency, then a shopping cart in Amazon.
+For example, handling a replicated database with bank transactions pays high attention to data consistency, than a shopping cart in Amazon.
 
 ### Single Leader Replication
 the replication algorithms work as follows:
@@ -37,7 +35,7 @@ Synchronously waiting for processing the write on all replicas can be impractica
 
 A better trade-off is to have a single replica be synchronous while others keep asynchronous. This approach allows a replica to fail and at the same time, the durability is maintained. In case the synchronous follower becomes unavailable, one of the asynchronous followers becomes synchronous.
 
-#### write-ahead log shipping (WAL)
+#### Write-Ahead-Log Replication (WAL)
 WAL is a replication technique used in PostgreSQL.
 
 The log is an append-only sequence of bytes containing all writes to the database. We can use the exact same log to build a replica on another node.
@@ -79,33 +77,33 @@ With multileader configuration, there can be a single leader in both datacenters
 Multi leader replication is considered dangerous and should be avoided.
 
 ### Conflict Resolution Strategies:
-**Each Write has a unique ID**
+**1. Each Write has a unique ID**
 The writer with the highest ID is the winner and other writers will be ignored. Timestamp can also be used as an ID, in this case, the strategy is called Last Write Wins (LWW). *This strategy will lead to data loss*.
 
-**Each Replica has a unique ID**
+**2. Each Replica has a unique ID**
 Write from a replica with the highest ID wins and other writes will be ignored. *This strategy also implies data loss*.
 
-**Values are merged together**
+**3. Values are merged together**
 Written values are merged together by e.g. concatenation e.g. "B/C"
 
-**Conflict managed by data structure**
+**4. Conflict managed by data structure**
 Conflict is recorded by a data structure and describes the conflict. This data structure can either just capture the conflict or merge it to a result based on predefined rules.
 
-**Custom logic**
-Also, custom logic can be used to resolve a conflict resolved by an application code. This could happen on:
+**5. Custom logic**
+A custom logic can be used to resolve a conflict resolved by an application code. This could happen on:
 - write - conflict is reported on write. This might not be possible with async replication.
 - read - all versions of the write are returned to the application. The application can handle the conflict
 
 ## Leaderless Replication
-Leaderless replication became popular after Amazon used it for Dynamo DB. Cassandra, Voldemort, and Riak followed the example.
+***Leaderless replication became popular after Amazon used it for Dynamo DB. Cassandra, Voldemort, and Riak followed the example.***
 
-Some databases dodged the leader0follower model altogether and they directly write the data to all clients.
-When a node is offline and misses a write (fails to accept the write), the write is stored in other nodes if e.g. 2 out of 3 nodes are available and the database continues to progress. When the offline node recovers and starts accepting reads, it can have lag and might be providing stale data. To prevent serving stale results, the client does not request data from a single, but from multiple nodes in parallel.
+Some databases dodged the leader-follower model altogether and they directly write the data to all clients.
+When a node is offline and misses a write (fails to accept the write), the write is stored in other nodes if some nodes (e.g. 2 out of 3) are available and the database continues to progress. When the offline node recovers and starts accepting reads, it can have lag and might be providing stale data. To prevent serving stale results, the client does not request data from a single, but from multiple nodes in parallel.
 
 If we know that every successful writer is guaranteed to be present on at least 2 out of 3 replicas, that means that at most one replica can be stale.
 
 **Consistency Quorum**
-More generally, if there are n replicas, every write must be confirmed by w nodes to be successful and we must read at least r nodes for each read. As long as a `w + r > n` - Reads and writes that obey these *r* and *w* values are called *quorum reads and writes*.
+More generally, if there are n replicas, every write must be confirmed by w nodes to be successful, and we must read at least r nodes for each read. As long as a `w + r > n` - Reads and writes that obey these *r* and *w* values are called *quorum reads and writes*.
 
 **Limits to Consistency Quorum**
 Quorums are not necessarily a majority. it only means that a set of nodes for writing and reading are overlapping in at least one node. There are the following edge cases:
@@ -115,18 +113,18 @@ Quorums are not necessarily a majority. it only means that a set of nodes for wr
 - write succeeded on some but failed on other replicas
 - others
 
-Typically database leaderless replication are more tolerant towards eventual consistency. In this case, it is important to practically define what eventual consistency means and closely follow the nodes' lag.
+Typically, database leaderless replication are more tolerant towards eventual consistency. In this case, it is important to practically define what eventual consistency means and closely follow the nodes' lag.
 
 **Read Repair**
-When a client reads a value from multiple replicas, it can detect that some nodes had stale, or missing values. If that happens a client can replace the stale value with the latest one.
+When a client reads a value from multiple replicas, it can detect that some nodes had stale, or missing values. If that happens, a client can replace the stale value with the latest one.
 
-**Any-Entryopy process**
+**Any-Entropy process**
 A background process that constantly looks for differences in the data between replicas and copies any missing data.
 
 **Sloppy Quorum**
 It is common to make trade-offs between availability and consistency depending on the requirement. We ask a question: 
 Is it better to return errors to all requests for which we cannot reach a quorum of w or r nodes?
-In a *Slopy Quorum* system accepts writes anyway and writes them to some nodes that are reachable but are not a month the *n* nodes on which the value is usually present?
+In a *Sloppy Quorum* system accepts writes anyway and writes them to some nodes that are reachable but are not a month the *n* nodes on which the value is usually present?
 
 Once the network interruption is fixed and writes that one node temporarily accepted on behalf of the other node is sent to the appropriate *home node*. - This strategy is called *Hinted Handoff*
 
@@ -144,7 +142,7 @@ In case the client writes to a leader and reads from an async replica, it can ha
 ### Monotonic Reads
 When a client reads a single value from the database, the monotonic read guarantees that every successive read operation will return the same or more recent value.
 
-### Consisten Prefix Reads
+### Consistent Prefix Reads
 Guarantee that if a sequence of writes happens in a certain order, then anyone reading those writes will see them appear in the same order.
 
 This guarantee can be in danger in a case when different database partitions operate independently so there is no global ordering of writes.

@@ -131,4 +131,3 @@ In phase 1 - the coordinator sends a *prepare* request to each of the nodes, ask
 After a node replied yes to coordinator and signalled that is ready to commit, there is no way of return. A node can not abort the commit and has to commit the transaction if it will receives commit command from cooridnator in phase 2.
 
 It does not matter whether the node fails or not. If it failed it will have to process the commit after it wakes up.
-

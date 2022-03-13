@@ -4,7 +4,6 @@
 ## Distributed Systems and More
 
 - [consistency and consensus](distributed-systems-and-more/consistency-and-consensus.md)
-- [distributed systems solution architect](istributed-systems-and-more/distributed-systems-solution-architect.md)
 - [partitioning](distributed-systems-and-more/partitioning.md)
 - [replication](distributed-systems-and-more/replication.md)
 - [transactions](distributed-systems-and-more/transactions.md)

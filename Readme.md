@@ -3,6 +3,10 @@
 
 ## Distributed Systems and More
 
+### Interview
+- [interview structure](distributed-systems-and-more/interview-structure.md)
+
+### Theory
 - [consistency and consensus](distributed-systems-and-more/consistency-and-consensus.md)
 - [partitioning](distributed-systems-and-more/partitioning.md)
 - [replication](distributed-systems-and-more/replication.md)
@@ -10,8 +14,7 @@
 - [unix basics](distributed-systems-and-more/unix-basics.md)
 
 
-# Interview Prep - Distributed Systems and More
-
+# Topics Checklist
 Unix
 
 - [ ] file descriptors

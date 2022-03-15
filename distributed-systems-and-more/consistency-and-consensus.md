@@ -131,3 +131,83 @@ In phase 1 - the coordinator sends a *prepare* request to each of the nodes, ask
 After a node replied yes to coordinator and signalled that is ready to commit, there is no way of return. A node can not abort the commit and has to commit the transaction if it will receives commit command from cooridnator in phase 2.
 
 It does not matter whether the node fails or not. If it failed it will have to process the commit after it wakes up.
+
+## Fault-Tolerant Consensus
+In false tolerant consensus, one or more nodes can propose a value and the consensus algorithm decides on one of those values.
+
+It must satisfy following properties:
+- **uniform agreement** - no two noodes decide differently
+- **integrity** - no node decides twice
+- **validity** - if a node decides value v then v was proposed by soomoe node
+- **termination** - every node that does not crash eventually decides some value
+
+The uniform agreement and the integrity define the core idea of consensus:
+*If everyone decides on the same outhcome and once you have decided, you cannoon change your mind*
+
+The algorithm assumes that if a node crashes it will be gone forever and will never come back. 2PC does not satisgy termination property because it expects to wait for the failed node to come back.
+
+The best known algorithms are Viewstamped Replication
+- VSR
+- Paxos
+- Raft
+- Zab
+
+These algorithms have many similarities. They decide a sequence of values which makes them a total order broadcast algorithm.
+Total broadcast requires messages to be delivered exactly once in the same order to all nodes. Total broadcast can be understood as repeated rounds of consensus. It is because of its properties:
+- agreement - all nodes decide to deliver the same message in the same oreder
+- integrity - messages are not dupplicated
+- validity - messages are not corrupted or fabricated from the thin air
+- termination - messages are not lost
+
+### Epoch Numbers and quorums
+Typically, protocols use internally a leader, but they dont guarantee the leader to be unique. They guarantee that the leader is unique per each epoch defined by an epoch number.
+
+Every time the current leader is thought to be dead, a vote is started among the nodes to elect a new leader.
+
+Election is given an incremented epoch number - thus epoch numbers are totally ordered and monotonically increasing.
+
+If there is a conflict of two leaders, the leader with a higher epoch number wins.
+
+Before a leader can decide on anything, it must first verify that there is not othere leader with a higher epoch number.
+
+Every decision that a leader want to make, it must send the proposed value to the other nodes and wait for a quorum of nodes to respond in fabour of the proposal.
+
+A node votes in favor of a proposal only if it is not aware of any other leader with a higher epoch.
+
+Thus there are two rounds to:
+1. choose a leader
+2. vote on leaders proposal
+
+The insight is that the quorum in the 2 votes must overlap.
+
+The main difference to 2PC is that in consensus the leader is elected and in 2PC it is not.
+
+The main benefits of the consensus are:
+- they bring concrete safety properties
+- they remain fault tolerant
+- they provide total order
+	- thus can also implement linearizable atomic operations
+
+Limitations:
+- they require strict majority to operate
+- relying on timeouts can falsely cause that a healthy node is mark as unhealthy due to network delay or partitioning - a system can spend more time electing a leader than useful work
+
+## Membership and Coordination Service
+Zookeeper is a popular database providing a API that allows to write and read a key. It is used as part of other systems and is not meant as general use database.
+
+Following systems are using a Zookeeper:
+- HBase
+- Hadoop YARN
+- OpenStack Nova
+- Kafka in the past - now it is using a kafka for this purpose
+
+Zookeeper and etcd are used to hold a small amounts of data that can fit entirely in memory. Zookeeper is modeled after Google's Chubby lock service and is extended to fit following usecases:
+- linearizable atomic operations:
+	- e.g. lock with lease with an expiration date
+- total ordering operations:
+	- a fencing token, some number that is monotonically increasing each time when lock is aquired
+- failure detection
+	- clients maintain a long-lived session on ZooKeeper servers, and the client  and server periodically exchange heartbeats to check whether the other node is still alive.
+- change notifications
+
+Zookeeper is not intended for a runtime application storage, however it is very useful for number of tasks that require fault tolerant node synchronization.

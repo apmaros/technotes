@@ -7,9 +7,9 @@ Design a system that enable users to monitor humidity of number of plants and ge
 
 ## API
 ### User API
-`[POST] /user` - register 
-`[GET] /user/<id>` - get user profile
-`[PUT] /user/<id>` - update user profile
+- `[POST] /user` - register 
+- `[GET] /user/<id>` - get user profile
+- `[PUT] /user/<id>` - update user profile
 
 ## Small Scale
 ### On the Edge
@@ -22,15 +22,14 @@ The sensor provided by 3rd party will be integrated with a thin layer of a clien
 
 ## Mid Scale
 ### User API
-`[POST] /user` - register 
-`[GET] /user/<id>` - get user profile
-`[PUT] /user/<id>` - update user profile
+- `[POST] /user` - register 
+- `[GET] /user/<id>` - get user profile
+- `[PUT] /user/<id>` - update user profile
 
 ### Plant API
-`[POST] /user/<id>/plants` - add new plant
-`[GET] /user/<id>/plants&page=<pageNumber>` - get all plants
-`[GET] /plants/<id>` - get plant by its ID
-`[GET] /plants/<id>/should-water`
-
+- `[POST] /user/<id>/plants` - add new plant
+- `[GET] /user/<id>/plants&page=<pageNumber>` - get all plants
+- `[GET] /plants/<id>` - get plant by its ID
+- `[GET] /plants/<id>/should-water`
 
 ![plant-monitor-system-design-scale-mid.png](../_assets/plant-monitor/plant-monitor-system-design-scale-mid.png)

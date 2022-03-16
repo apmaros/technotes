@@ -7,7 +7,7 @@ Design a system that enable users to monitor humidity of number of plants and ge
 
 ## API
 ### User API
-- `[POST] /user` - register 
+- `[POST] /user` - register
 - `[GET] /user/<id>` - get user profile
 - `[PUT] /user/<id>` - update user profile
 
@@ -22,7 +22,7 @@ The sensor provided by 3rd party will be integrated with a thin layer of a clien
 
 ## Mid Scale
 ### User API
-- `[POST] /user` - register 
+- `[POST] /user` - register
 - `[GET] /user/<id>` - get user profile
 - `[PUT] /user/<id>` - update user profile
 

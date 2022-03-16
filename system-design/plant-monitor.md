@@ -10,6 +10,9 @@ Design a system that enable users to monitor humidity of number of plants and ge
 - `[POST] /user` - register
 - `[GET] /user/<id>` - get user profile
 - `[PUT] /user/<id>` - update user profile
+- `[POST] /user/<id>/plants` - add new plant
+- `[GET] /user/<id>/plants&page=<pageNumber>` - get all plants, without page, default first 10 plants
+- `[GET] /plants/<id>` - get plant by its ID
 
 ## Small Scale
 ### On the Edge

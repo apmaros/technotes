@@ -5,7 +5,17 @@
 	- use different methods - GET, POST, PUT
 - Demonstrate end-to-end transaction of given endpoints. 
 	- what components would be required? 
-	- is state required?
+
+**State**
+- What state will need to be stored?
+- What consistency requirements will be on the storage?
+	- tweets, booking vs bank transactions
+	- can you utilise a single data source?
+
+**Domain Driven Design**
+- Have you recognised any clear domain entities?
+- Acknowladge blured domain boundaries if any
+- Can this help with defining services?
 
 *this is opportunity to introduce core components and simplistic architecture*
 

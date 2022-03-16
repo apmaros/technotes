@@ -3,15 +3,19 @@
 
 ## Distributed Systems and More
 
-### Interview
-- [interview structure](distributed-systems-and-more/interview-structure.md)
-
 ### Theory
 - [consistency and consensus](distributed-systems-and-more/consistency-and-consensus.md)
 - [partitioning](distributed-systems-and-more/partitioning.md)
 - [replication](distributed-systems-and-more/replication.md)
 - [transactions](distributed-systems-and-more/transactions.md)
 - [unix basics](distributed-systems-and-more/unix-basics.md)
+
+## System Design
+### Interview
+- [interview structure](distributed-systems-and-more/interview-structure.md)
+
+## Designs
+- [plant monitor](system-design/plant-monitor.md)
 
 
 # Topics Checklist

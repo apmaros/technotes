@@ -13,6 +13,7 @@
 ## More
 - [unix basics](distributed-systems-and-more/unix-basics.md)
 - [encoding](distributed-systems-and-more/encoding.md)
+- [back of envelope calculations](distributed-systems-and-more/back-of-envelope-calculations.md)
 
 ## System Design
 ### Interview

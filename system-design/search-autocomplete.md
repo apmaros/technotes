@@ -12,6 +12,7 @@ In order to be relevant, the suggestion needs to happen instantinously
 ### Intuition
 - algorithm should use prefix search
 - think about size of the search dataset and actual popular phrases dataset
+	- how many bytes has a phrase?
 	- popular phrases can be relativelly small and fit into the memory
 - how fast is instantenious? - it is <150ms p99
 	- due to latency requirement and dataset size, it can be stored in the memory
@@ -19,6 +20,7 @@ In order to be relevant, the suggestion needs to happen instantinously
 ### Considerations
 - how to store searches in HDFS?
 - how frequently to run the batch and what technology to use for the batch?
+	- map reduce vs batch?
 - what datastructure to use for storing flat file and what format should it be encoded into?
 	- json and parquet, or protobuf
 - how the old dataset will be replaced with a new one?

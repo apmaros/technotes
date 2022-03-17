@@ -1,14 +1,18 @@
 
 # Table of Content
 
-## Distributed Systems and More
-
-### Theory
+## Distributed Systems
 - [consistency and consensus](distributed-systems-and-more/consistency-and-consensus.md)
 - [partitioning](distributed-systems-and-more/partitioning.md)
 - [replication](distributed-systems-and-more/replication.md)
 - [transactions](distributed-systems-and-more/transactions.md)
+
+## Databases
+- Index
+
+## More
 - [unix basics](distributed-systems-and-more/unix-basics.md)
+- [encoding](distributed-systems-and-more/encoding.md)
 
 ## System Design
 ### Interview
@@ -16,6 +20,7 @@
 
 ## Designs
 - [plant monitor](system-design/plant-monitor.md)
+- [search autocomplete](system-design/search-autocomplete.md)
 
 
 # Topics Checklist

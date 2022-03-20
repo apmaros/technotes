@@ -27,8 +27,8 @@ def bfs(graph: Graph, node: int, target: int):
         if current == target:  
             return True  
   
- # visit if not visited  
- if current not in visited:  
+        # visit if not visited  
+        if current not in visited:  
             visited.add(current)  
             to_visit.extend(graph.neighbours(current))  
   

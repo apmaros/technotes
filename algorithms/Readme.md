@@ -8,7 +8,7 @@
 ## Search
 - [Binary Search](search/binary-search.md)
 - Prefix Search
-- BFS
+- [BFS](search/breath-first-search.md)
 - DFS
 
 ## Data Structures

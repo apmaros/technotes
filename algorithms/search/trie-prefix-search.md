@@ -1,6 +1,6 @@
 # Trie and Prefix Search
 
-```
+```python
 ##
 # Disclaimer
 # Taken with a minor modifications from

@@ -64,7 +64,7 @@ def _merge(left: t.List, right: t.List) -> t.List:
  return result
 ```
 
-
+1. 
 ```Python
 from src.algorithms.sort.merge_sort import merge_sort  
   

@@ -7,9 +7,9 @@
 
 ## Search
 - [Binary Search](search/binary-search.md)
-- Prefix Search
+- [Prefix Search](search/trie-prefix-search.md)
 - [BFS](search/breath-first-search.md)
-- DFS
+- [DFS](search/breath-first-search.md)
 
 ## Data Structures
 - stack

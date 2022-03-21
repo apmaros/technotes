@@ -21,7 +21,7 @@ def bfs(graph: Graph, node: int, target: int):
     Returns True when node is connected to the target 
     """ 
     visited = set(node)
-    to_visit = deque(graph.neighbours(node))
+    to_visit = deque(node)
   
     while to_visit:  
         current = to_visit.popleft()
@@ -32,7 +32,7 @@ def bfs(graph: Graph, node: int, target: int):
         # visit if not visited  
         if current not in visited:  
             visited.add(current)  
-            to_visit.extend(graph.neighbours(current))  
+            to_visit.extend(list(graph.neighbours(current)))
   
     return False  
   

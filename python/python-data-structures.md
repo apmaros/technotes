@@ -95,7 +95,8 @@ MyStruct.unpack(data)
 Set is mutable and backed by the dictionary. Any hashable object can be stored in a set
 ```
 vowels = {"a", "e", "i", "o", "u"}
-
+s = set()
+s.add(1)
 "e" in vowels
 # > True
 ```

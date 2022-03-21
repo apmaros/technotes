@@ -46,3 +46,19 @@ for i, n in enumerate([0,1,2]):
 #> i=1,n=1
 #> i=2,n=2
 ```
+
+**defaultdict**
+read more in [API Doc](https://docs.python.org/3/library/collections.html#collections.defaultdict)
+
+```python
+from collections import defaultdict
+
+items_agg = defaultdict(list)
+items = [(1, 'foo'), (2, 'bar'), (1, 'bum'), (2, 'been')]
+
+for i, word in items:
+    items_agg[i].append(word)
+
+dict(items_agg)
+#> {1: ['foo', 'bum'], 2: ['bar', 'been']}
+```

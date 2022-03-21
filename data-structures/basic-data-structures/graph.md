@@ -13,7 +13,7 @@ class Graph:
             self.graph_dict[node].append(neighbour)  
   
     def neighbours(self, node) -> t.List:  
-        return self.graph_dict.get(node, [])  
+        return list(self.graph_dict.get(node, []))
   
     def show_edges(self):  
         for node in self.graph_dict:  

@@ -1,6 +1,8 @@
 # BFS - Breath First Search
 ```python
-class Graph:  
+from collections import deque
+
+class Graph:
     graph = {}  
   
     def add(self, node, neighbour):  
@@ -12,17 +14,17 @@ class Graph:
         return self  
   
  def neighbours(self, node):  
-        return self.graph.get(node, [])  
+        return list(self.graph_dict.get(node, []))
   
 def bfs(graph: Graph, node: int, target: int):  
     """  
     Returns True when node is connected to the target 
     """ 
-    visited = set(node)  
-    to_visit = graph.neighbours(node)  
+    visited = set(node)
+    to_visit = deque(graph.neighbours(node))
   
     while to_visit:  
-        current = to_visit.pop(0)  
+        current = to_visit.popleft()
   
         if current == target:  
             return True  

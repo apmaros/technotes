@@ -16,6 +16,12 @@ sorted(l)
 l.sort() # outputs None
 l
 #> [3, 4, 5, 6]
+
+# sort by key
+intv = [[0,30],[15,20],[5,10]]
+intv.sort(key = (lambda e: e[0]))
+intv
+#> [[0, 30], [5, 10], [15, 20]]
 ```
 
 **Seqs**

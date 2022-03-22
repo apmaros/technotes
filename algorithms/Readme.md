@@ -11,6 +11,10 @@
 - [BFS](search/breath-first-search.md)
 - [DFS](search/breath-first-search.md)
 
+## Problems
+- [Anagram](problems/problems/anagram.md)
+- [Palindrom](problems/palindrom.md)
+
 ## Data Structures
 - stack
 - queue

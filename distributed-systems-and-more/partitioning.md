@@ -1,5 +1,7 @@
 # Partitioning
-Partitioning is a technique used for scaling databases horizontally. It is typically used when using a single, or a node with replicas is not sufficient. When partitioning, each record belongs to a single partition.
+Partitioning is a technique used for scaling databases horizontally. 
+
+It is typically used when using a single, or a node with replicas is not sufficient. When partitioning, each record belongs to a single partition.
 
 A partition can be understood as a single database on its own. A database is split into multiple partitions eventually.  Each partition can be run on a different host, hence the load is distributed across different machines. Each machine can independently execute queries.
 It is still important to consider replication as partitions are typically replicated to provide failure tolerance guarantees.
@@ -8,8 +10,7 @@ Operational data are always changing and this causes partitions might no longer 
 
 The next section will describe how to decide to what partition a new record should be allocated as well as how can we rebalance partitions.
 
-
-The primary goal of partitioning is to spread the data and the query load eventually across nodes. 
+**The primary goal of partitioning is to spread the data and the query load eventually across nodes.** 
 
 **skewed partitioning**
 the situation when partitioning is unfair and some partitions have more data or load than the others.

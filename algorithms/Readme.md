@@ -12,7 +12,7 @@
 - [DFS](search/breath-first-search.md)
 
 ## Problems
-- [Anagram](problems/problems/anagram.md)
+- [Anagram](problems/anagram.md)
 - [Palindrom](problems/palindrom.md)
 
 ## Data Structures

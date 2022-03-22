@@ -16,10 +16,7 @@
 - [back of envelope calculations](distributed-systems-and-more/back-of-envelope-calculations.md)
 
 ## System Design
-### Interview
-- [interview structure](distributed-systems-and-more/interview-structure.md)
-
-## Designs
+- [interview structure](system-design/interview-structure.md)
 - [plant monitor](system-design/plant-monitor.md)
 - [search autocomplete](system-design/search-autocomplete.md)
 

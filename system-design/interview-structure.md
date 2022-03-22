@@ -1,6 +1,6 @@
 # Interview Structure
 ## Functional Requirements
-**API**
+**API Modeling**
 - Define core API endpoints
 	- use different methods - GET, POST, PUT
 - Demonstrate end-to-end transaction of given endpoints. 
@@ -33,11 +33,28 @@ Discussing business and revenue model can help to drive some design decisions. e
 - User interaction rate - e.g. a number of posts
 - back of an envelope calculations
 
+*Update system diagram with components adapted for scale*
+
 **Consistency**
 Evaluate consistency requirements for different parts of the system. Does everyting require to be synchronous and strongly consistent?
 
 **Failure Tolerance**
- *tbd*
+- is there a single point of failure?
 
+**Tracing, Monitoring and Alerting**
+- as progressing system design keep:
+  - describing custom system metrics
+  - describing custom business metrics
 
-*Update system diagram with components adapted for scale*
+- what metrics are measured for every component
+- touch on alerting
+
+**Extra**
+- CI/CD:
+  - every release is automatically deployed
+- Software security monitoring:
+  - code dependencies are periodically analysed for vulnerabilityies
+- Dependency freshness:
+  - sourcode will be periodically checked for updates
+
+At the end summarise best practices for monitoring and alerting

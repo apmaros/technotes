@@ -5,8 +5,8 @@
 3. Walk the example
 4. Make sure you understand the task and the examples
     - ask questions if not
-5 Try to come up with a brute force solution
-6 Once you know the brute force, try to come up with more efficient solution
+5. Try to come up with a brute force solution
+6. Once you know the brute force, try to come up with more efficient solution
 
 There are some patterns that lead to improvements:
   1. array is sorted

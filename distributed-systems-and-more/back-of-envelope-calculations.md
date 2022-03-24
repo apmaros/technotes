@@ -15,9 +15,9 @@
 ## Availability Levels
 | Level    | per day      | per month    | per year     |
 |----------|--------------|--------------|--------------|
-| 99%		 | 14.4 minutes | 7.2 hours    | 3.65 days    |
-| 99.9% 	 | 1.44 minutes | 43.2 minutes | 8.76 hours   |
-| 99.99% 	 | 8.64 seconds | 4.32 minutes | 4.32 minutes |
+| 99%      | 14.4 minutes | 7.2 hours    | 3.65 days    |
+| 99.9%    | 1.44 minutes | 43.2 minutes | 8.76 hours   |
+| 99.99%   | 8.64 seconds | 4.32 minutes | 4.32 minutes |
 
 ## Latency Comparison Numbers (~2012)
 - L1 cache reference 0.5 ns

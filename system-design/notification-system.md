@@ -22,9 +22,9 @@ Following Diagram demonstrates simple implementation of the notification system
 ## System Design
 
 ### API
-```
-[POST] /v1.notifications.mycompany.io/send
+`[POST] /v1.notifications.mycompany.io/send`
 
+```
 {
   "from": { "email": "no-reply@myemail.com" },
   	"to": ["email": "bob@myemail.com"],

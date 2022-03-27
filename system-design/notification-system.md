@@ -26,16 +26,12 @@ Following Diagram demonstrates simple implementation of the notification system
 [POST] /v1.notifications.mycompany.io/send
 
 {
-  "from": {
-  		"johndoe@myemail.com"
-  	},
-  	"to": [{
-  		"bob@myemail.com"
-  	}],
+  "from": { "email": "no-reply@myemail.com" },
+  	"to": ["email": "bob@myemail.com"],
   	subject: "Hello World!"
   	"content": [{
-	  	type: "text/plain",
-	  	value: "Hello World"
+	  type: "text/plain",
+	  value: "Hello World"
   	}]
 }
 ```

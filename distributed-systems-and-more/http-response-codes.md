@@ -25,7 +25,6 @@
 | 405         | Method Not Allowed        |
 | 408         | Request Timeout           |
 | 429         | Too Many Requests         |
-| 429         | Too Many Requests         |
 | 500         | Internal Server Error     |
 | 501         | Not Implemented           |
 | 502         | Bad Gateway               |

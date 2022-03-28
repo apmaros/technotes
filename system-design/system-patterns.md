@@ -2,16 +2,16 @@
 
 **System Types**
 
-- notification - system alerting
-- messaging - telegram
-- post feed - twitter, facebook
-- marketplace - amazon
-- delivery - DoorDash
-- search - Google, Skyscanner
-- chat rooms - Slack
-- unique ID generator
-- news feed
-- url shortener
+- [x] notification - system alerting
+- [ ] messaging - telegram
+- [ ] post feed - twitter, facebook
+- [ ] marketplace - amazon
+- [ ] delivery - DoorDash
+- [ ] search - Google, Skyscanner
+- [ ] chat rooms - Slack
+- [ ] unique ID generator
+- [ ] news feed
+- [ ] url shortener
 
 **System Considerations / Paradigms**
 
@@ -20,3 +20,4 @@
 - In-memory vs DB
 - Ephemeral data vs Forever stored
 - Synchronous vs Async
+- 

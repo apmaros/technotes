@@ -9,7 +9,7 @@
 
 ## Simplified Design
 ### API
- **`POST api/v1/shorten**
+ **`POST api/v1/shorten`**
 
 Request:
 - origin: string
@@ -22,7 +22,7 @@ Example:
 Reqsponse:
 - 200 longUrl: string
 
-**`GET api/v1/redirect/<shortUrl>**
+**`GET api/v1/redirect/<shortUrl>`**
 
 Response:
 301 LongUrl

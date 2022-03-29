@@ -9,6 +9,7 @@
 ## Simplified Design
 
 Following Diagram demonstrates simple implementation of the notification system
+
 ![notification system](../_assets/notification-system/notification-system-simplified-design.png)
 
 ### Architecture Problems

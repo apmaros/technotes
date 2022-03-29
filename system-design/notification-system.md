@@ -27,12 +27,12 @@ Following Diagram demonstrates simple implementation of the notification system
 ```
 {
   "from": { "email": "no-reply@myemail.com" },
-  	"to": ["email": "bob@myemail.com"],
-  	subject: "Hello World!"
-  	"content": [{
-	  type: "text/plain",
-	  value: "Hello World"
-  	}]
+  "to": ["email": "bob@myemail.com"],
+  "subject": "Hello World!"
+  "content": [{
+    "type": "text/plain",
+    "value": "Hello World"
+  }]
 }
 ```
 

@@ -5,7 +5,7 @@
 - [x] [notification - system alerting](notification-system.md)
 - [x] [rate limiter](./rate-limiter.md)
 - [x] [autocomplete](./search-autocomplete.md)
-- [ ] [url-shortener](./url-shortener.md)
+- [x] [url-shortener](./url-shortener.md)
 - [ ] messaging - telegram
 - [ ] post feed - twitter, facebook
 - [ ] marketplace - amazon

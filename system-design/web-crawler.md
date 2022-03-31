@@ -32,6 +32,7 @@ Given a URL:
 It is the starting point from where the crawling will start. It is important to choose well the URLs to reach as far as possible.
 
 #### URL Front
+Stores URLs to be downloaded. It also ensures their validation and politeness. Politemess is limiting the load imposed on the server.
 
 #### HTML Downloader
 Downloads html content from the web pages

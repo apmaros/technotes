@@ -8,7 +8,12 @@
 - [transactions](distributed-systems-and-more/transactions.md)
 
 ## Databases
+
+### Theory
 - Index
+
+### Stores
+- [Cassandra](technologies/cassandra.md)
 
 ## More
 - [unix basics](distributed-systems-and-more/unix-basics.md)

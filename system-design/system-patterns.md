@@ -2,7 +2,10 @@
 
 **System Types**
 
-- [x] notification - system alerting
+- [x] [notification - system alerting](notification-system.md)
+- [x] [rate limiter](./rate-limiter.md)
+- [x] [autocomplete](./search-autocomplete.md)
+- [ ] [url-shortener](./url-shortener.md)
 - [ ] messaging - telegram
 - [ ] post feed - twitter, facebook
 - [ ] marketplace - amazon
@@ -11,7 +14,6 @@
 - [ ] chat rooms - Slack
 - [ ] unique ID generator
 - [ ] news feed
-- [ ] url shortener
 
 **System Considerations / Paradigms**
 

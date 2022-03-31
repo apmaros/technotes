@@ -23,6 +23,8 @@
 - [notification-system](system-design/notification-system.md)
 - [url shortener](system-design/url-shortener.md)
 
+## Algorithms and Data Structures
+- [Algorighms and data structures](algorithms/Readme.md)
 
 # Topics Checklist
 Unix

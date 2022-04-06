@@ -1,13 +1,19 @@
 # Replication
+
 Replication means keeping a copy of the same data on multiple machines that are connected via a network.
+
 ## Purposes
+
 - high availability - the system can tolerate a failure of one or more nodes
 - latency - geographical colocation reduces the client's read latency
 - scalability - spreading reads and potentially writing to replicas allows a database to handle more volume
+
 ## Challenges
+
 The concept of replication is simple, but the execution is complex and has many challenges. The difficulty in replication is in handling the change to a replicated dataset.
 
 Some of the challenges we need to deal with are:
+
 - unavailable nodes
 - network interruptions
 - data inconsistency between nodes
@@ -16,12 +22,15 @@ Some of the challenges we need to deal with are:
 These challenges require careful design of replication strategy.
 
 ## Replication Approaches
+
 Each node storing a copy of a database is called a *replica*. The challenge is to ensure that all data are stored on all replicas and that they are up to date. There are multiple approaches to solve this challenge. Based on the latency, scale, and availability requirements different solution is a better or worse suited solution.
 
 For example, handling a replicated database with bank transactions pays high attention to data consistency, than a shopping cart in Amazon.
 
 ### Single Leader Replication
+
 the replication algorithms work as follows:
+
 1. One node is called a leader. Leader node accepts all writes from clients. When it stores the writes to its own database it also replicates writes to replicas. The data are sent to replicas by a replication log or a change stream.
 2. All writes are consumed and stored by the replicas in the same order as they were processed by the leader.
 3. Read clients can connect to both the leader and the replica.
@@ -31,11 +40,13 @@ The ability to read from the replica node increases significantly the reading sc
 This approach is popular and used in many databases such as PostgreSQL, MySQL, but also distributed message brokers such as Kafka, and highly available queues such as RabbitMQ.
 
 #### Synchronous versus Asynchronous Replication
+
 Synchronously waiting for processing the write on all replicas can be impractical for both latency and availability of the system. Even one unavailable replica can cause that database is not able to progress and accept writes.
 
 A better trade-off is to have a single replica be synchronous while others keep asynchronous. This approach allows a replica to fail and at the same time, the durability is maintained. In case the synchronous follower becomes unavailable, one of the asynchronous followers becomes synchronous.
 
 #### Write-Ahead-Log Replication (WAL)
+
 WAL is a replication technique used in PostgreSQL.
 
 The log is an append-only sequence of bytes containing all writes to the database. We can use the exact same log to build a replica on another node.
@@ -60,7 +71,8 @@ Leader-based replication has a major downside - it has only one leader and all w
 A common use-case for multi-leader replication is when having multiple data centers in different geo locations, this can have a significant impact on both latency and availability.
 With multileader configuration, there can be a single leader in both datacenters. Within each data center, regular leader-follower replication is used. Between datacenters, each datacenter leader replicates its writes to other datacenters.
 
-![[static/IMG_8103.jpg]]
+![](../_assets/IMG_8103.jpg)
+
 
 **Advantages**
 - performance - every write can be processed in the local datacenter and is replicated asynchronously to the other datacenters, the inter-datacenter delay is hidden from the users

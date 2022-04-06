@@ -7,7 +7,7 @@
 - [x] [autocomplete](./search-autocomplete.md)
 - [x] [url-shortener](./url-shortener.md)
 - [ ] messaging - telegram
-- [ ] post feed - twitter, facebook
+- [x] post feed - twitter, facebook
 - [ ] marketplace - amazon
 - [ ] delivery - DoorDash
 - [ ] search - Google, Skyscanner
@@ -22,4 +22,4 @@
 - In-memory vs DB
 - Ephemeral data vs Forever stored
 - Synchronous vs Async
-- 
+- Funout on Write vs Fanout on Read

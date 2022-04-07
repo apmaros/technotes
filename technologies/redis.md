@@ -12,6 +12,15 @@ Redis is an open source, in-memory key-value.
 - Support rich data structures
 - Single threaded
 
+## Supported Data Types
+
+- String: a text value
+- Hash: A hash table of string keys and values
+- List: A list of string values
+- Set: A non-repeating list of string values
+- Sorted Set: A non-repeating list of string values ordered by a score value
+[0]
+
 ## Redis Replication
 
 Redis replication provides Redis follower instances to be exact copies of the primary instance. It is due to a primary-replicat pattern. Replicas maintain a persistent connection with the primary. When the network link is broken, they will attempt to re-connect with the master.
@@ -66,8 +75,24 @@ When some of the nodes fails, .e.g. Node B, Redis does not have a way how to ser
   - A rule of thumb, an instance with 30_000 connections can only process half the throughput achievable with 100 connections.
 [4]
 
+## MemCache vs Redis
+
+Key difference:
+
+- Redis is singlethreaded and memcache is multithreaded
+  - Memcache scales well vertically by adding more cores. Because Redis is singlethreaded adding more cores does not significantly improves its performance
+- Redis supports data types and memcache stores only strings
+  - Memcache stores strings indexed by a string key
+- Memcache limited size of key and values
+  - Memcached supports keys with a maximum size of 250B and values up to 1MB[0]
+- Memcache does not support horizontal scaling out of the box
+- Redis has multiple eviction policies while Memcache has only LRU
+  - Redis: No eviction, LRU, Volatile LRU, All keys random, Volatile random, Volatile TTL
+  - Volatile policies apply given policy with ability to set expiration time
+
 ## Reference
 
+- [0] <https://www.imaginarycloud.com/blog/redis-vs-memcached>
 - [1] <https://redis.io/docs/manual/replication/>
 - [2] <https://redis.io/docs/manual/sentinel/>
 - [3] <https://redis.io/docs/manual/scaling/>

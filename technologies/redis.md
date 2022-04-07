@@ -1,10 +1,16 @@
 # Redis
 
-Redis is an open source, in-memory  key-value store with optional persistence to disk.
+Redis is an open source, in-memory key-value.
 
 ## Key characteristics
 
+- In memory with optional write to disk
 - The maximum allowed size of a key is 512 MB.
+- Not strongly consistent
+- Highly available
+- Horizontally scalable
+- Support rich data structures
+- Single threaded
 
 ## Redis Replication
 

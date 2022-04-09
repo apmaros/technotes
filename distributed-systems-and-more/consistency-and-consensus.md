@@ -1,78 +1,78 @@
 # Consistency and Consensus
 
-The best way of building fault-tolerant systems is to find some general-purpose abstractions with useful guarantess, implement. them once and then let applications rely on those guarantees.
+The best way of building fault-tolerant systems is to find some general-purpose abstractions with useful guarantees, implement, them once, and then let applications rely on those guarantees.
 
 Consensus implemented once can be used for multiple different purposes. E.g. leader election.
 
 distributed consistency models vs the hierarchy of transaction isolation levels:
-- **transaction isolation** is primarily about avoiding race condtions due to concurrently executing transactions
-- **distributed conseistency** is mostly about coordinating the state of. replicas in the face of delays and faults
+- **transaction isolation** is primarily about avoiding race conditions due to concurrently executing transactions
+- **distributed consistency** is mostly about coordinating the state of. replicas in the face of delays and faults
 
 ## Eventual Consistency
 
 Typically, the weakest consistency guarantee that most databases provide is *eventual consistency*. 
-It means that the application will at som point in time converge to a consistency state by itself. 
+It means that the application will at some point in time converge to a consistent state by itself. 
 It is not defined how much time it takes to converge to a consistent state, only that it will happen once and it will be without action from the operator.
 
 benefit
-- good performance - low latency and high throughput as there is not need to wait for the consistent state. 
-- fault tolerant - database can progress with nodes being temporarily unavailable
+- good performance - low latency and high throughput as there is no need to wait for the consistent state. 
+- fault-tolerant - database can progress with nodes being temporarily unavailable
 
 disadvantage:
-- difficult to work with for developers, consistency must be implemented on application level.
-- error prone - developing consistent system is difficult
+- difficult to work with for developers, consistency must be implemented on the application level.
+- error-prone - developing a consistent system is difficult
 
 
 ## Linearizability
-Simply put a linearizabile system looks as if it was operating on a single copy of data with all operations being atomic.
+Simply put a linearizable system looks as if it was operating on a single copy of data with all operations being atomic.
 
-Linearizability is a **recency** guarantee. As soon as the client sucessfully completes write all clients reading from the database must be able to see the value that was just written. Once a value was written, can can never change back to the previous value.
+Linearizability is a **recency** guarantee. As soon as the client successfully completes writing all clients reading from the database must be able to see the value that was just written. Once a value was written, can never change back to the previous value.
 
 ### Linearizability vs Serializability
-Serializability is a isolation property of transactions where every transaction may read and write multiple objects. If multiple transactions are executed at the same time, they behave as if they were executed in serial order.
+Serializability is an isolation property of transactions where every transaction may read and write multiple objects. If multiple transactions are executed at the same time, they behave as if they were executed in serial order.
 
 Linearizability is a recency guarantee on rads and writes of a register. It does not group operations together and does not prevent problems such as write skew.
 
-Strict serializibility - is when a database combines of a linearizability and serializability guarantees.
+Strict serializability - is when a database combines linearizability and serializability guarantees.
 
-Snapshot isolation is not serializable by design. To avoid lock contention between readers and writers, it makes reads from a consistent snapshot. The point of the consistent snapshot is that it does not include writes that are more recent than the snapshot and thus reads from snapshot are not linearizable.
+Snapshot isolation is not serializable by design. To avoid lock contention between readers and writers, it makes reads from a consistent snapshot. The point of the consistent snapshot is that it does not include writes that are more recent than the snapshot and thus reads from the snapshot are not linearizable.
 
 ### Use of Linearizability
-**Locking and leader election** - a system using single leader replication uses a locking to ensure that there is only one leader. Once leader was selected, it must never come to previous value without additional write. If that would happen and linearizable guarantee was violated, there could be 2 different leaders selected and database would be in stat of split braine.
+**Locking and leader election** - a system using single leader replication uses locking to ensure that there is only one leader. Once a leader was selected, it must never come to previous value without additional writing. If that would happen and a linearizable guarantee was violated, there could be 2 different leaders selected and the database would be in a state of split-brain.
 
-Typically coordination services like Apache ZooKeeper and etcd uses a consensus algorithms to implement fault tolernat linearizable operations.
+Typically coordination services like Apache ZooKeeper and etcd use a consensus algorithm to implement fault-tolerant linearizable operations.
 
-Linearizable locking is can also be used independently for example in context of locking pages in distributed file system.
+Linearizable locking can also be used independently for example in the context of locking pages in the distributed file system.
 
 ### Implementation of a Linearizable System
-- **single copy of data with one writer** - the simple solution, however the system is unable to tolerate failures and is at risk of data loss.
-- **single-leader replication** - potentially linearizable - a single leader replicates data to followers and return success for write only if is replicated to all followers.
+- **single copy of data with one writer** - the simple solution, however, the system is unable to tolerate failures and is at risk of data loss.
+- **single-leader replication** - potentially linearizable - a single leader replicates data to followers and returns success for writing only if is replicated to all followers.
 - consensus algorithm - multiple nodes must agree on the value
-- multi-leader replication - **not** linearizable - writes are concurrently processed on multiple nodes and asynchronousely replicatied to the rest of the nodes.
+- multi-leader replication - **not** linearizable - writes are concurrently processed on multiple nodes and asynchronously replicated to the rest of the nodes.
 - leaderless replication - probably not linearizable
 
 ### The Cost of Linearizability
-Linearizable distributed system availability is fragile to network partition. Network interuption causes the application to become unavailable in datacentres that cannot contact the leader.
+Linearizable distributed system availability is fragile to network partition. Network interruption causes the application to become unavailable in datacentres that cannot contact the leader.
 
-The response time of read and write requests is at least proportaional to the uncertainty of delays in the network. Linearizable writes and reads are inevitably going to have a high response time.
+The response time of reading and writing requests is at least proportional to the uncertainty of delays in the network. Linearizable writes and reads are inevitably going to have a high response time.
 
 ## Ordering and Causality
-Ordering is a recuring requirement for many guarantees - e.g. writes must be processed in order in single leader replication, concurrent writes must look as if they were in serial order for serializability, and others.
+Ordering is a recurring requirement for many guarantees - e.g. writes must be processed in order in single leader replication, concurrent writes must look as if they were in serial order for serializability, and others.
 
-The reason why ordering is so important is because it preserves causality. Causality imposes ordering on events. *Cause comes before effect:* A message is sent before that message is received.
+The reason why ordering is so important is that it preserves causality. Causality imposes ordering on events. *Cause comes before effect:* A message is sent before that message is received.
 
 ### Causal order and total order
-A total order allows any 2 elements to be comared. It is always possible to say which one is greater and which one is smaller, which one is ordered befor the other. 
+A total order allows any 2 elements to be compared. It is always possible to say which one is greater and which one is smaller, which one is ordered before the other. 
 
 **Linearizability** - total order of operations, every operation is atomic.
 
-**Causality** - two opeartions are the concurrent if neither happened before the other.  Operations are incomparable if they are concurrent. Causality defines a partial order. Some opeartions are ordered with respect to each other but some are incomparable.
+**Causality** - two operations are concurrent if neither happened before the other.  Operations are incomparable if they are concurrent. Causality defines a partial order. Some operations are ordered with respect to each other but some are incomparable.
 
-According to our definition, there are no concurrent writes in linearizable system. There is a single timeline on which are all operations ordered. 
+According to our definition, there are no concurrent writes in a linearizable system. There is a single timeline on which are all operations ordered. 
 
 Linearizability implies causality, but causality does not provide total order.
 
-Casual consistency is the strongest possible consistency model that does not slow down ue to network delays and remain available in the face of network failures.
+Causal consistency is the strongest possible consistency model that does not slow down due to network delays and remain available in the face of network failures.
 
 **Partial order** - concurrent operations might be processed in any order, but if one happened before the other, they must be processed in that order on every replica. If a node had already seen the value X, when it issued the write Y, then X and Y may be casually related.
 

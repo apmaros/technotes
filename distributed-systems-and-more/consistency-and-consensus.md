@@ -24,14 +24,14 @@ disadvantage:
 
 
 ## Linearizability
-Simply put a linearizable system looks as if it was operating on a single copy of data with all operations being atomic.
+Simply put **a linearizable system looks as if it was operating on a single copy of data with all operations being atomic**.
 
-Linearizability is a **recency** guarantee. As soon as the client successfully completes writing all clients reading from the database must be able to see the value that was just written. Once a value was written, can never change back to the previous value.
+Linearizability is a **recency** guarantee. As soon as the client successfully completes writing all clients reading from the database must be able to see the value that was just written. Once a value was written, can never change back to the previous value without additional write.
 
 ### Linearizability vs Serializability
 Serializability is an isolation property of transactions where every transaction may read and write multiple objects. If multiple transactions are executed at the same time, they behave as if they were executed in serial order.
 
-Linearizability is a recency guarantee on rads and writes of a register. It does not group operations together and does not prevent problems such as write skew.
+Linearizability is a recency guarantee on reades and writes of a register. It does not group operations together and does not prevent problems such as write skew.
 
 Strict serializability - is when a database combines linearizability and serializability guarantees.
 
@@ -47,7 +47,7 @@ Linearizable locking can also be used independently for example in the context o
 ### Implementation of a Linearizable System
 - **single copy of data with one writer** - the simple solution, however, the system is unable to tolerate failures and is at risk of data loss.
 - **single-leader replication** - potentially linearizable - a single leader replicates data to followers and returns success for writing only if is replicated to all followers.
-- consensus algorithm - multiple nodes must agree on the value
+- **consensus algorithm** - multiple nodes must agree on the value
 - multi-leader replication - **not** linearizable - writes are concurrently processed on multiple nodes and asynchronously replicated to the rest of the nodes.
 - leaderless replication - probably not linearizable
 

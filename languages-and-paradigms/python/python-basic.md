@@ -1,5 +1,19 @@
 # Python Adhoc
 
+## Truth Testing Procedure
+
+Object can be tested for truth value in `while` or `if` condition or as boolean operand. The conditions are following:
+
+- by default object is considered as `True`
+- object can control its truthy value by implementing `__bool__()` method
+- when object `__len__()` returns **0** its evaluated as False
+
+Following objects are considered `False`:
+
+- constants defined to be false: None and False
+- zero of any numeric type: `0`, `0.0`, `0j`, `Decimal(0)`, `Fraction(0, 1)`
+- empty sequence: `''`, `()`, `[]`, `{}`, `set()`, `range(0)`
+
 ## String to list of chars
 
 ```Python

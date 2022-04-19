@@ -21,32 +21,32 @@ def _reverse_string(s, acc) -> str:
 ## Recursion bottom up
 
 ### Reverse List
+
 ![recursion-bottom-up](../_assets/algos/recursion.png)
 
 ```Python
 def reverse(head: ListNode, debug_on=False, i=0):
-	 # base case
+  # base case
     if head is None or head.next is None:
         return head
 
     if debug_on: print(f"current-head={head.val}, i={i}")
-	 # `head.next` - progress to next element
+  # `head.next` - progress to next element
     rest = reverse(head.next, debug_on, i+1)
 
     if debug_on: print(f"swapping head={head.val} with next-head={head.next.val}, i={i}")
-	
-	 # when we have reached the end recursion,
-	 # the operations will be applied first 
-	 # to the last elements wrapping back to
-	 # the first element
+    # when we have reached the end recursion,
+    # the operations will be applied first 
+    # to the last elements wrapping back to
+    # the first element
     head.next.next = head
     head.next = None
 
     return rest
 ```
 
-
 ### Swap Pairs
+
 ```Python
 def swap_pairs(head: LLNode):
     if head is None or head.next is None:
@@ -72,8 +72,8 @@ if __name__ == '__main__':
     # l = LLNode(1, LLNode(2, LLNode(3, LLNode(4, LLNode(5, LLNode(6))))))
 ```
 
-
 ## Linked List
+
 ```Python
 class ListNode:
     def __init__(self, value, node=None):
@@ -106,4 +106,78 @@ class ListNode:
             curr = curr.next
 
         return '->'.join(acc)
+```
+
+## BST - Binary Search Tree
+
+```Python
+from typing import Optional
+
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left: Optional[Node] = None
+        self.right: Optional[Node] = None
+
+    def add(self, val):
+        if val < self.val:
+            if self.left is not None:
+                self.left.add(val)
+            else:
+                self.left = Node(val)
+        else:
+            if self.right is not None:
+                self.right.add(val)
+            else:
+                self.right = Node(val)
+
+        return self
+```
+
+### Mirror Tree
+
+Determine, whether one node is a mirror image of another node.
+
+```Python
+def is_mirror(head: Node, another_head: Node, ) -> bool:
+    """
+    we will traverse the tree until we find difference
+    or the whole tree was traversed
+
+    @return True if head is identical to another_head
+    and false if they are different
+
+
+               20
+              /  \
+            10    40
+           / \    / \
+          4  14  21  45
+    """
+
+    if head is None and another_head is None:
+        return True
+
+    if head is None or another_head is None:
+        return False
+
+    print(f'comparing {head.val} with {another_head.val}')
+    if head.val != another_head.val:
+        return False
+
+    return is_mirror(head.left, another_head.left) and is_mirror(head.right, another_head.right)
+```
+
+#### Test
+
+```Python
+if __name__ == '__main__':
+    n = Node(20).add(10).add(40).add(4).add(14).add(21).add(45)
+    longer_n = Node(20).add(10).add(40).add(4).add(14).add(21).add(45).add(2)
+    an = Node(20).add(10).add(40).add(5).add(14).add(21).add(45)
+
+    assert is_mirror(n, n)
+    assert not is_mirror(n, longer_n)
+    assert not is_mirror(n, an)
 ```

@@ -1,4 +1,5 @@
 # Binary Search
+
 ```python
 import typing as t  
   

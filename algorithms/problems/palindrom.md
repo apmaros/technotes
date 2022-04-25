@@ -1,13 +1,14 @@
 # Palindrom
 
 ## Valid Palindrom
-**Decsription**
+
+### Decsription
 
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
 
 Given a string s, return true if it is a palindrome, or false otherwise.
 
-**Solution**
+### Solution
 
 Two pointer problem. Use pointer for the beginning and the end of the string.
 
@@ -37,6 +38,7 @@ def is_palindrome(self, s: str) -> bool:
 ```
 
 ## Palindrome Permutation
+
 Given a string `s`, return `true` if a permutation of the string could form a palindrome.
 
 ```python

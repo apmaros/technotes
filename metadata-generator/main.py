@@ -15,7 +15,7 @@ def format_title(title, level):
 
 
 def format_file(file):
-    filename = "".join(file.name.split('.')[:-1])
+    filename = "".join(file.name.split('.')[:-1]).replace("-", " ").capitalize()
 
     file_chunks = str(file.absolute()).rsplit('interview-preparation')
     file_relative_path = f'.{file_chunks[-1]}'
@@ -52,7 +52,7 @@ def generate_content(dirpath, level, lines):
     return lines
 
 
-def generate_readme(files, dirs):
+def generate_readme(dirs):
     lines = [format_title(_PROJECT_NAME, 1)]
     for d in dirs:
         for line in generate_content(d, 2, []):
@@ -61,41 +61,25 @@ def generate_readme(files, dirs):
     return lines
 
 
-"""
-[
-"# Title",
-"## Subtitle",
-"- link 1",
-"- link 2",
-"### Second level subtitle",
-"- link 1",
-"## Another Subtitle",
-"- link 1"
-]
-"""
-
-
 def build_table_of_content_lines():
-    files = []
-    dirs = []
+    dirs = files = []
 
-    for e in BASE_PATH.iterdir():
-        element_name = e.name
+    for item in BASE_PATH.iterdir():
+        if item.is_file and is_md_file(item.name) and not should_ignore_file(
+                item.name):
+            files.append(item)
 
-        if e.is_file and is_md_file(element_name) and not should_ignore_file(
-                e.name):
-            files.append(e)
+        if item.is_dir() and not should_ignore_dir(item.name):
+            dirs.append(item)
 
-        if e.is_dir() and not should_ignore_dir(element_name):
-            dirs.append(e)
-
-    return generate_readme(files, dirs)
+    return generate_readme(dirs)
 
 
-def make_table_of_content():
+def generate_table_of_content():
+    lines = build_table_of_content_lines()
     try:
         with open(Path(BASE_PATH, "Readme.md"), 'w', encoding='utf-8') as f:
-            for line in build_table_of_content_lines():
+            for line in lines:
                 f.write(line + '\n')
     except Exception as e:
         print(f'failed to write readme due error: {e}')
@@ -105,5 +89,5 @@ def make_table_of_content():
 
 if __name__ == '__main__':
     print(f'Generating metadata from {BASE_PATH}')
-    make_table_of_content()
+    generate_table_of_content()
 

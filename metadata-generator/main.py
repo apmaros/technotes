@@ -1,12 +1,17 @@
+import logging
 import os
+import sys
 from pathlib import Path
 
-BASE_PATH = Path(os.getcwd()).parent
+_BASE_PATH = Path(os.getcwd())
+_DOCS_PATH = Path('./docs')
+_TOC_OUTPUT_FILENAME = './Readme.md'
+TABLE_OF_CONTENT_OUTPUT_FILE_PATH = Path(_BASE_PATH, _TOC_OUTPUT_FILENAME)
 
 _SYSTEM_FOLDERS = {'_assets', 'venv', 'metadata-generator'}
 _BLOCKLISTED_FILES = {'readme.md'}
 _MD_LEVEL_SYMBOL = '#'
-
+_EMPTY_LINE = ""
 _PROJECT_NAME = "tech notes"
 
 
@@ -36,58 +41,72 @@ def is_md_file(filename):
     return filename_parts and filename_parts[-1] == 'md'
 
 
-def generate_content(dirpath, level, lines):
-    dir_items = list(dirpath.iterdir())
+def generate_lines_for_dir(dir_path, level, lines):
+    dir_items = list(dir_path.iterdir())
     dirs = list(filter(lambda item: item.is_dir(), dir_items))
     files = list(filter(lambda item: item.is_file(), dir_items))
 
-    lines.append(format_title(dirpath.name, level))
+    lines.append(format_title(dir_path.name, level))
+    lines.append(_EMPTY_LINE)
 
     for file in files:
         lines.append(format_file(file))
 
     for d in dirs:
-        generate_content(d, level + 1, lines)
-
-    return lines
-
-
-def generate_readme(dirs):
-    lines = [format_title(_PROJECT_NAME, 1)]
-    for d in dirs:
-        for line in generate_content(d, 2, []):
-            lines.append(line)
+        generate_lines_for_dir(d, level + 1, lines)
 
     return lines
 
 
 def build_table_of_content_lines():
-    dirs = files = []
+    logging.debug(
+        f'Building table of content from base folder_name={_DOCS_PATH}'
+    )
 
-    for item in BASE_PATH.iterdir():
-        if item.is_file and is_md_file(item.name) and not should_ignore_file(
-                item.name):
-            files.append(item)
+    if not _DOCS_PATH.exists() or not _DOCS_PATH.is_dir():
+        raise IOError(f'Folder at path={_DOCS_PATH.absolute()} must exist')
 
-        if item.is_dir() and not should_ignore_dir(item.name):
-            dirs.append(item)
+    lines = [format_title(_PROJECT_NAME, 1), _EMPTY_LINE]
+    for line in generate_lines_for_dir(_DOCS_PATH, 2, []):
+        lines.append(line)
 
-    return generate_readme(dirs)
+    return lines
 
 
-def generate_table_of_content():
+def write_table_of_content(lines, output_path):
+    with open(output_path, 'w', encoding='utf-8') as f:
+        for line in lines:
+            f.write(line + '\n')
+
+
+def generate_table_of_content(output_path):
     lines = build_table_of_content_lines()
+    logging.info(f"table_of_content_length={len(lines)}")
     try:
-        with open(Path(BASE_PATH, "Readme.md"), 'w', encoding='utf-8') as f:
-            for line in lines:
-                f.write(line + '\n')
+        write_table_of_content(lines, output_path)
     except Exception as e:
-        print(f'failed to write readme due error: {e}')
+        logging.info(f'failed to write readme due error: {e}')
 
-    print('Success')
+
+def _set_logger(log_level):
+    logging.root.setLevel(log_level)
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=log_level)
 
 
 if __name__ == '__main__':
-    print(f'Generating metadata from {BASE_PATH}')
-    generate_table_of_content()
+    if (len(sys.argv) == 2
+            and (sys.argv[1] == '-v' or sys.argv[0] == '--verbose')):
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+    _set_logger(level)
 
+    logging.info(f'Generating metadata from {_BASE_PATH}')
+
+    try:
+        generate_table_of_content(TABLE_OF_CONTENT_OUTPUT_FILE_PATH)
+    except Exception as e:
+        logging.error('Failed to generate table of content due to error', e)
+    logging.info(
+        f'Wrote table of content to file = {TABLE_OF_CONTENT_OUTPUT_FILE_PATH.absolute()} 🎉'
+    )

@@ -4,20 +4,20 @@ import sys
 from pathlib import Path
 from log import set_logger
 
-_BASE_PATH = Path(os.getcwd())
-_DOCS_PATH = Path('./docs')
-_TOC_OUTPUT_FILENAME = './Readme.md'
-TABLE_OF_CONTENT_OUTPUT_FILE_PATH = Path(_BASE_PATH, _TOC_OUTPUT_FILENAME)
+BASE_PATH = Path(os.getcwd())
+DOCS_PATH = Path('./docs')
+TOC_OUTPUT_FILENAME = './README.md'
+TABLE_OF_CONTENT_OUTPUT_FILE_PATH = Path(BASE_PATH, TOC_OUTPUT_FILENAME)
 
-_SYSTEM_FOLDERS = {'_assets', 'venv', 'metadata-generator'}
-_BLOCKLISTED_FILES = {'readme.md', '.DS_Store'}
+SYSTEM_FOLDERS = {'_assets', 'venv', 'metadata-generator'}
+BLOCKLISTED_FILES = {'readme.md', '.DS_Store'}
 _MD_LEVEL_SYMBOL = '#'
 _EMPTY_LINE = ""
 _PROJECT_NAME = "tech notes"
 
 
 def format_title(title, level):
-    return f'{level * _MD_LEVEL_SYMBOL} {title.capitalize()}'
+    return f'\n{level * _MD_LEVEL_SYMBOL} {title.capitalize()}\n'
 
 
 def format_file(file):
@@ -31,11 +31,11 @@ def format_file(file):
 
 
 def should_ignore_dir(dirname):
-    return dirname in _SYSTEM_FOLDERS or dirname[0] == '.'
+    return dirname in SYSTEM_FOLDERS or dirname[0] == '.'
 
 
 def should_ignore_file(filename):
-    return filename.lower() in _BLOCKLISTED_FILES
+    return filename.lower() in BLOCKLISTED_FILES
 
 
 def is_md_file(filename):
@@ -44,10 +44,9 @@ def is_md_file(filename):
 
 
 def generate_lines_for_dir(dir_path, level, lines):
-    logging.debug(f'Appending folder to table of content dirname = {dir_path.absolute()}')
-    lines.append(format_title(dir_path.name, level))
-    lines.append(_EMPTY_LINE)
-
+    if level > 1:
+        lines.append(format_title(dir_path.name, level))
+    logging.debug(f'{level*" "} exploring dir={dir_path.name}')
     dir_items = list(dir_path.iterdir())
     dirs = list(filter(
         lambda item: item.is_dir() and not should_ignore_dir(item.name),
@@ -57,12 +56,15 @@ def generate_lines_for_dir(dir_path, level, lines):
         lambda item: item.is_file() and not should_ignore_file(item.name),
         dir_items
     ))
-
+    if files:
+        logging.debug(f'{(level+1)*" "} found files:')
     for file in files:
-        logging.debug(f'appending file to table of content filename={file.absolute()}')
+        logging.debug(f'{(level+1)*" "} {file.absolute()}')
         lines.append(format_file(file))
-
+    if dirs:
+        logging.debug(f'{(level + 1) * " "} found dirs:')
     for d in dirs:
+        logging.debug(f'{(level+1)*" "} {d}')
         generate_lines_for_dir(d, level + 1, lines)
 
     return lines
@@ -70,14 +72,15 @@ def generate_lines_for_dir(dir_path, level, lines):
 
 def build_table_of_content_lines():
     logging.debug(
-        f'Building table of content from base folder_name={_DOCS_PATH}'
+        f'Building table of content from base folder_name={DOCS_PATH}'
     )
 
-    if not _DOCS_PATH.exists() or not _DOCS_PATH.is_dir():
-        raise IOError(f'Folder at path={_DOCS_PATH.absolute()} must exist')
+    if not DOCS_PATH.exists() or not DOCS_PATH.is_dir():
+        raise IOError(f'Folder at path={DOCS_PATH.absolute()} must exist')
 
-    lines = [_EMPTY_LINE, format_title(_PROJECT_NAME, 1), _EMPTY_LINE]
-    for line in generate_lines_for_dir(_DOCS_PATH, 2, []):
+    # initialize table of content lines with title
+    lines = [format_title(_PROJECT_NAME, 1)]
+    for line in generate_lines_for_dir(DOCS_PATH, 1, []):
         lines.append(line)
 
     return lines
@@ -106,14 +109,17 @@ def write_table_of_content():
         log_level = logging.INFO
     set_logger(log_level)
 
-    logging.info(f'Generating metadata from {_BASE_PATH}')
+    logging.info(f'Generating metadata from {BASE_PATH}')
 
     try:
         generate_table_of_content(TABLE_OF_CONTENT_OUTPUT_FILE_PATH)
     except Exception as e:
-        logging.error('Failed to generate table of content due to error', e)
+        logging.error('Failed to generate table of content due to error')
+        raise e
+
     logging.info(
-        f'Wrote table of content to file = {TABLE_OF_CONTENT_OUTPUT_FILE_PATH.absolute()} 🎉'
+        f'Wrote table of content to file path'
+        f' {TABLE_OF_CONTENT_OUTPUT_FILE_PATH.absolute()} 🎉'
     )
 
 

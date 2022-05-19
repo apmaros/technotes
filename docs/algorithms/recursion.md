@@ -4,7 +4,10 @@ A recursive function is calling itself in order to calculate the result. Each ti
 
 **base case** - a terminating condition that stops the recursion and returns the result
 
-## Recursion with Accumulator
+## Recursion
+
+### Reverse String with Accumulator
+Reverse string using additional memory
 
 ```python
 def reverse_string(s: str) -> str:
@@ -16,6 +19,23 @@ def _reverse_string(s, acc) -> str:
         _reverse_string(s, acc)
 
     return ''.join(acc)
+```
+
+### Reverses String in-place
+Does not require additional memory. Typically, preferable solution
+
+```python
+def reverse(s):
+    return _reverse(s, 0, len(s)-1)
+
+
+def _reverse(s, l, r):
+    if l >= r:
+        return s
+
+    s[l], s[r] = s[r], s[l]
+
+    return _reverse(s, l+1, r-1)
 ```
 
 ## Recursion bottom up
@@ -59,7 +79,7 @@ def swap_pairs(head: LLNode):
     second_node = head.next
 
     first_node.next = swap_pairs(second_node.next)
-    first_node.next = first_node
+    second_node.next = first_node
 
     print(f"after val={head.val}")
     print(f"after val next={head.next.val}")

@@ -11,3 +11,6 @@ Kubernetes provides following:
 - automated rollout and rollback
 - self-healing
 - secret and configuration management
+
+![kubernetes components](https://raw.githubusercontent.com/apmaros/technotes/main/docs/_assets/kubernetes/kubernetes-components.png)
+

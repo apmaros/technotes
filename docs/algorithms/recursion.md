@@ -85,11 +85,6 @@ def swap_pairs(head: LLNode):
     print(f"after val next={head.next.val}")
 
     return second_node
-
-
-if __name__ == '__main__':
-    print(''.join(reverse_string(list('john doe'))))
-    # l = LLNode(1, LLNode(2, LLNode(3, LLNode(4, LLNode(5, LLNode(6))))))
 ```
 
 ## Linked List

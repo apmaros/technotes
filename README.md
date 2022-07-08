@@ -43,6 +43,10 @@
 
 - [Overview](./docs/distributed-systems-and-more/kubernetes/overview.md)
 
+## Tools
+
+- [Sed](./docs/tools/sed.md)
+
 ## Data-structures
 
 

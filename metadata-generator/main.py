@@ -10,7 +10,7 @@ TOC_OUTPUT_FILENAME = './README.md'
 TABLE_OF_CONTENT_OUTPUT_FILE_PATH = Path(BASE_PATH, TOC_OUTPUT_FILENAME)
 
 SYSTEM_FOLDERS = {'_assets', 'venv', 'metadata-generator'}
-BLOCKLISTED_FILES = {'readme.md', '.DS_Store'}
+BLOCKLISTED_FILES = {'readme.md', '.ds_store'}
 _MD_LEVEL_SYMBOL = '#'
 _EMPTY_LINE = ""
 _PROJECT_NAME = "tech notes"
@@ -24,7 +24,7 @@ def format_file(file):
     filename = "".join(file.name.split('.')[:-1]).replace("-",
                                                           " ").capitalize()
 
-    file_chunks = str(file.absolute()).rsplit('interview-preparation')
+    file_chunks = str(file.absolute()).rsplit('tech-notes')
     file_relative_path = f'.{file_chunks[-1]}'
 
     return f'- [{filename}]({file_relative_path})'

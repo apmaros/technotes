@@ -47,3 +47,5 @@
 - 2. <https://sre.google/sre-book/availability-table>
 - 3. <https://colin-scott.github.io/personal_website/research/interactive_latency.html>
 - 4. <https://itsallbinary.com/system-design-back-of-envelop-calculations-for-storage-size-bandwidth-traffic-etc-estimates>
+- 5. <https://itsallbinary.com/system-design-back-of-envelop-calculations-for-storage-size-bandwidth-traffic-etc-estimates/>
+

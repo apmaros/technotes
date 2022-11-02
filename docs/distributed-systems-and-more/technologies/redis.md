@@ -40,7 +40,7 @@ Apart of failover it also provides following features:
 - failover
 - configuration provider / discovery - Sentinel acts as a source of authority for clients service discovery. Clients connect to sentinel to get the current primary. After a failover sentinel is responsible for reporting a new address to clients.
 
-![redis sentinel](../_assets/redis/redis-sentinel.png)
+![redis sentinel](../../_assets/redis/redis-sentinel.png)
 
 In case of failure, ACK-ed writes can be lost due to ASYNC replication between primary and replicas
 

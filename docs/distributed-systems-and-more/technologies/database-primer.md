@@ -14,7 +14,7 @@ High level DB categories:
 
 ### Architecture
 
-![DBMS Architecture](../_assets/database-primer/database-architecture.jpg)
+![DBMS Architecture](../../_assets/database-primer/database-architecture.jpg)
 
 ### Query Optimizer
 
@@ -52,4 +52,4 @@ sizes of these objects vary but their typical values is as following:
 
 The smallest programmable unit is a **page**. The smallest earsable unit is a block
 
-![ssd organization schemantics](../_assets/database-primer/ssd-organization-schemantics.png)
+![ssd organization schemantics](../../_assets/database-primer/ssd-organization-schemantics.png)

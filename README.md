@@ -101,6 +101,10 @@
 - [Anagram](./docs/algorithms/problems/anagram.md)
 - [Palindrom](./docs/algorithms/problems/palindrom.md)
 
+### Hashing
+
+- [Counting](./docs/algorithms/hashing/counting.md)
+
 ### Search
 
 - [Breath first search](./docs/algorithms/search/breath-first-search.md)

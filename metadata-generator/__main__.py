@@ -1,8 +1,8 @@
 import logging
 import os
 import sys
+from os.path import relpath
 from pathlib import Path
-from log import set_logger
 
 BASE_PATH = Path(os.getcwd())
 DOCS_PATH = Path('./docs')
@@ -21,13 +21,12 @@ def format_title(title, level):
 
 
 def format_file(file):
-    filename = "".join(file.name.split('.')[:-1]).replace("-",
-                                                          " ").capitalize()
+    filename = "".join(
+        file.name.split('.')[:-1]
+    ).replace("-", " ").capitalize()
 
-    file_chunks = str(file.absolute()).rsplit('tech-notes')
-    file_relative_path = f'.{file_chunks[-1]}'
-
-    return f'- [{filename}]({file_relative_path})'
+    filepath = relpath(file.absolute())
+    return f'- [{filename}](./{filepath})'
 
 
 def should_ignore_dir(dirname):
@@ -59,12 +58,12 @@ def generate_lines_for_dir(dir_path, level, lines):
     if files:
         logging.debug(f'{(level+1)*" "} found files:')
     for file in files:
-        logging.debug(f'{(level+1)*" "} {file.absolute()}')
+        logging.debug(f'{(level+1)*" "} {relpath(file.absolute())}')
         lines.append(format_file(file))
     if dirs:
         logging.debug(f'{(level + 1) * " "} found dirs:')
     for d in dirs:
-        logging.debug(f'{(level+1)*" "} {d}')
+        logging.debug(f'{(level + 1)*" "} {d}')
         generate_lines_for_dir(d, level + 1, lines)
 
     return lines
@@ -102,13 +101,6 @@ def generate_table_of_content(output_path):
 
 
 def write_table_of_content():
-    if (len(sys.argv) == 2 and (
-            sys.argv[1] == '-v' or sys.argv[0] == '--verbose')):
-        log_level = logging.DEBUG
-    else:
-        log_level = logging.INFO
-    set_logger(log_level)
-
     logging.info(f'Generating metadata from {BASE_PATH}')
 
     try:
@@ -124,4 +116,13 @@ def write_table_of_content():
 
 
 if __name__ == '__main__':
+    if (len(sys.argv) == 2 and (
+            sys.argv[1] == '-v' or sys.argv[0] == '--verbose')):
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    logging.root.setLevel(level)
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=level)
+
     write_table_of_content()

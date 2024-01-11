@@ -1,7 +1,7 @@
 # Heapsort
 ## Heap
-Heap is a tree based data structure in which node is larger then all of its child elements. There are 2 types of heaps
-- **max-heap** -  the largest element in a max-heap is stored at the root, and the subtree rooted at a node contains  values no larger than that contained at the node itself. 
+A heap is a tree-based data structure in which a node is larger than all of its child elements. There are 2 types of heaps
+- **max-heap** -  the largest element in a max-heap is stored at the root, and the subtree rooted at a node contains values no larger than that contained at the node itself. 
 -  **min-heap** - The smallest element in a min-heap is at the root, and the subree rooted at a node contains values no smaller than that contained at the node itself
 
 Heap can be implemented as an array object with the first element to be a root. Root is also to be the largest, or smallest element, based on the heap type. Heap does not maintain sorted array, but ensures that childrens of all nodes in binary tree are smaller, or larger than the node, based on the heap type.

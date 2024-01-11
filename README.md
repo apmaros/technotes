@@ -53,6 +53,7 @@
 ### Basic-data-structures
 
 - [Stack](./docs/data-structures/basic-data-structures/stack.md)
+- [Min_heap](./docs/data-structures/basic-data-structures/min_heap.md)
 - [Graph](./docs/data-structures/basic-data-structures/graph.md)
 
 ## Checklists

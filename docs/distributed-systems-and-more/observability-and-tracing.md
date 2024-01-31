@@ -1,2 +1,0 @@
-# Observability and Tracing
-*TODO*

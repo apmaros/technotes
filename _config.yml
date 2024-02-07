@@ -28,7 +28,10 @@ github_username: apmaros
 collections:
   algorithms:
     output: true
-
+  distributed-systems:
+    output: true
+  distributedsystems:
+    output: true
 
 # Build settings
 theme: minima

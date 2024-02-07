@@ -25,7 +25,7 @@ the situation when partitioning is unfair and some partitions have more data or 
 **hot spot**
 result of skewed partitioning, when a partition is under a higher load than the others.
 
-**key-value** 
+**key-value**
 Let's have a record containing data with a key and be queriable by the key. In key-value partitioning, records are sorted and assigned to partitions based on the order of the key.
 
 **key-range**

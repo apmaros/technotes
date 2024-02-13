@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Chapter 5 - Replication
-date:   2024-02-05 19:35:41 -0500
+date:   2024-02-05
 categories: replication
 tags: single-leader sync async
 ---

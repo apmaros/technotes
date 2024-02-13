@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Consistency and Consensus"
-date:   2024-02-05 19:35:41 -0500
+date:   2024-02-05
 ---
 
 The best way of building fault-tolerant systems is to find some general-purpose abstractions with useful guarantees, implement, them once, and then let applications rely on those guarantees.

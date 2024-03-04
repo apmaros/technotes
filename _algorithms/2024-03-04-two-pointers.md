@@ -1,3 +1,12 @@
+---
+layout: post
+title:  "Two Pointers"
+date:   2024-03-04
+categories: pointers
+tags: array string
+---
+
+
 # Two pointers
 
 Two-pointers is a common technique in solving string and array-related problems. It 

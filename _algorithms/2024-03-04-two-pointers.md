@@ -39,3 +39,25 @@ def maxArea(self, height: List[int]) -> int:
     
     return maxvol
 {% endhighlight %}
+
+# Sliding Window
+
+A sliding window is a bubset of 2 pointers problem. By a window we can understand a subarray with a left pointer at the start and a right pointer at the end of the window. Typically, it is used in problems with a validation criteria for a subarray with some metrics, e.g. sum, unique elements, frequency.
+
+For example, a subarray is valid when it has a sum less or equal to 5. Find longest valid subarray.
+
+{% highlight python %}
+def sliding_window(nums, target):
+    left = curr_sum = max_len = 0
+
+    for right in range(len(nums)):
+        curr_sum += nums[right]
+
+        while curr_sum > target:
+            left += 1
+            curr_sum -= nums[left]
+
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
+{% endhighlight %}

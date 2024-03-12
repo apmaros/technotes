@@ -101,7 +101,6 @@ class NumberLinkedList:
             s += f"-> {curr.val}"
             curr = curr.next
 
-
 if __name__ == '__main__':
     l = NumberLinkedList()
     l.add(10).add(4).add(13).add(1)
@@ -113,3 +112,48 @@ if __name__ == '__main__':
     assert l.delete(4).to_arr() == [10, 13, 1]
 
 {% endhighlight %}
+
+## Linked list with sentinel nodes
+    It is a linked list with maintaining nodes at the head and tail of the linked list. Sentinel nodes are also present in empty linked list. They are however not part of the list
+
+    For this purpose we will use a DoublyNodes containing pointers to next and previous node as well
+
+{% highlight python %}
+
+class DoublyNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+        self.prev = None
+
+
+class SentinelLinkedList:
+    def __init__(self):
+        self.head = DoublyNode(None)
+        self.tail = DoublyNode(None)
+
+        self.head.next = self.tail
+        self.tail.next = self.head
+
+    def remove_left(self):
+        """
+        X <-> 0 <-> 1 <-> 2 <-> X
+        """
+        # List is already empty
+        if self.head == self.tail:
+            return
+
+        to_remove = self.head.next
+        self.head.next = to_remove.next
+        to_remove.next.prev = self.head
+
+    def remove_right(self):
+        if self.head == self.tail:
+            return
+
+        to_remove = self.tail.prev
+        self.tail.prev = to_remove.prev
+        to_remove.prev.next = self.tail
+
+{% endhighlight %}
+  

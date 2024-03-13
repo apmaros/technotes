@@ -152,4 +152,79 @@ class SentinelLinkedList:
         self.tail.prev = to_remove.prev
         to_remove.prev.next = self.tail
 {% endhighlight %}
-  
+
+## Example Problems
+
+{% highlight python %}
+
+def find_middle(head: Node):
+    slow = fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    return slow.val
+
+
+def has_cycle(head: Node):
+    slow = fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+
+    return False
+
+
+def has_cycle_hash(head: Node):
+    seen = set()
+
+    current = head
+    while current:
+        if current in seen:
+            return True
+        seen.add(current)
+        current = current.next
+
+    return False
+
+
+def get_node(head: Node, k: int) -> int:
+    slow = fast = head
+    counter = 0
+
+    while fast.next and counter < k:
+        fast = fast.next
+        counter += 1
+
+    if counter != k:
+        raise ValueError(f'Out of bounds, found {counter} elements')
+
+    while fast:
+        slow = slow.next
+        fast = fast.next
+
+    return slow.val
+
+
+def deduplicate(head: Node) -> Node:
+    if not head:
+        return head
+
+    prev = head
+    curr = head.next
+
+    while curr:
+        if prev.val == curr.val:
+            prev.next = curr.next
+            curr = curr.next
+        else:
+            curr = curr.next
+            prev = prev.next
+
+    return head
+{% endhighlight %}

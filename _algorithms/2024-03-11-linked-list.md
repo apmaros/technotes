@@ -114,9 +114,9 @@ if __name__ == '__main__':
 {% endhighlight %}
 
 ## Linked list with sentinel nodes
-    It is a linked list with maintaining nodes at the head and tail of the linked list. Sentinel nodes are also present in empty linked list. They are however not part of the list
+It is a linked list with maintaining nodes at the head and tail of the linked list. Sentinel nodes are also present in empty linked list. They are however not part of the list
 
-    For this purpose we will use a DoublyNodes containing pointers to next and previous node as well
+For this purpose we will use a DoublyNodes containing pointers to next and previous node as well
 
 {% highlight python %}
 
@@ -136,9 +136,6 @@ class SentinelLinkedList:
         self.tail.next = self.head
 
     def remove_left(self):
-        """
-        X <-> 0 <-> 1 <-> 2 <-> X
-        """
         # List is already empty
         if self.head == self.tail:
             return
@@ -154,6 +151,5 @@ class SentinelLinkedList:
         to_remove = self.tail.prev
         self.tail.prev = to_remove.prev
         to_remove.prev.next = self.tail
-
 {% endhighlight %}
   

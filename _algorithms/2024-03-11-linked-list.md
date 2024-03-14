@@ -136,7 +136,6 @@ class SentinelLinkedList:
         self.tail.next = self.head
 
     def remove_left(self):
-        # List is already empty
         if self.head == self.tail:
             return
 
@@ -151,6 +150,12 @@ class SentinelLinkedList:
         to_remove = self.tail.prev
         self.tail.prev = to_remove.prev
         to_remove.prev.next = self.tail
+
+    def peek_left(self):
+        return self.head.val
+
+    def peek_right(self):
+        return self .tail.val
 {% endhighlight %}
 
 ## Example Problems

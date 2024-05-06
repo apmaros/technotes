@@ -2,7 +2,7 @@
 layout: post
 title:  "Linked List"
 date:   2024-03-11
-categories: list
+categories: algo
 tags: node linked list
 ---
 

@@ -30,6 +30,8 @@ collections:
     output: true
   distributed-systems:
     output: true
+  web:
+    output: true
 
 # Build settings
 theme: minima

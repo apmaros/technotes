@@ -28,7 +28,7 @@ github_username: apmaros
 collections:
   algorithms:
     output: true
-  distributed-systems:
+  distributed-systems-and-more:
     output: true
   web:
     output: true

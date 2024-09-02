@@ -29,26 +29,47 @@ layout: default
       {% endfor %}
     </ul>
   {%- endif -%}
-</div>
 
-<h1 class="post-list-heading">{{ page.list_title | default: "Designing Data-Intensive Applications by Martin Klepmann" }}</h1>
-{%- if site.distributed-systems.size > 0 -%}
-  <ul class="post-list">
-    {% for post in site.distributed-systems %}
-      <li>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          <span class="post-meta">{{ post.date | date: date_format }} 
-            {%- if post.tags.size > 0 -%}
-            &nbsp;| {{ post.tags }}
-            {%- endif -%}
-          </span>
-        </h3> 
-      </li>
-    {% endfor %}
-  </ul>
-{%- endif -%}
+  <h1 class="post-list-heading">{{ page.list_title | default: "Distributed Systems and More" }}</h1>
+  <p>Notes taken from Data Intensive Application written by Martin Kleppmann</p>
+  {%- if site.distributed-systems-and-more.size > 0 -%}
+    <ul class="post-list">
+      {% for post in site.distributed-systems %}
+        <li>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}
+              {%- if post.tags.size > 0 -%}
+              &nbsp;| {{ post.tags }}
+              {%- endif -%}
+            </span>
+          </h3>
+        </li>
+      {% endfor %}
+    </ul>
+  {%- endif -%}
+
+  <h1 class="post-list-heading">{{ page.list_title | default: "Web" }}</h1>
+  {%- if site.web.size > 0 -%}
+    <ul class="post-list">
+      {% for post in site.web %}
+        <li>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}
+              {%- if post.tags.size > 0 -%}
+              &nbsp;| {{ post.tags }}
+              {%- endif -%}
+            </span>
+          </h3>
+        </li>
+      {% endfor %}
+    </ul>
+  {%- endif -%}
 </div>

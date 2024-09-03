@@ -17,7 +17,7 @@ Java numbers have signed two's complements representation. Exception is int and 
 | long    | 64   |
 | float   | 32   |
 | double  | 64   |
-| boolean | n/a  |
+| boolean | 1    |
 | char    | 16   |
 
 

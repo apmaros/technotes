@@ -72,4 +72,25 @@ layout: default
       {% endfor %}
     </ul>
   {%- endif -%}
+
+  <h1 class="post-list-heading">{{ page.list_title | default: "Tech Journey" }}</h1>
+  {%- if site.tech-journey.size > 0 -%}
+    <ul class="post-list">
+      {% for post in site.tech-journey %}
+        <li>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}
+              {%- if post.tags.size > 0 -%}
+              &nbsp;| {{ post.tags }}
+              {%- endif -%}
+            </span>
+          </h3>
+        </li>
+      {% endfor %}
+    </ul>
+  {%- endif -%}
 </div>

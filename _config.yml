@@ -32,6 +32,8 @@ collections:
     output: true
   web:
     output: true
+  tech_journey:
+    output: true
 
 # Build settings
 theme: minima

@@ -32,7 +32,7 @@ collections:
     output: true
   web:
     output: true
-  tech_journey:
+  tech-journey:
     output: true
 
 # Build settings

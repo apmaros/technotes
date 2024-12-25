@@ -2,7 +2,7 @@
 layout: post
 title:  HTTP Server
 date:   2024-11-16
-categories: http
+categories: [http]
 ---
 
 # HTTP Server

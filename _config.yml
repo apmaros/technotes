@@ -34,6 +34,8 @@ collections:
     output: true
   tech-journey:
     output: true
+  microcontrollers:
+    output: true
 
 # Build settings
 theme: minima

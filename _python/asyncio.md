@@ -10,8 +10,8 @@ It is convenient to process I/O intensitve operation concurrently. If a method s
 
 
 ## Simple example
-```python
 
+```python
 import asyncio
 import time
 from dataclasses import dataclass
@@ -71,3 +71,4 @@ async def get_user_with_orders(user_id: int) -> UserWithOrders:
 if __name__ == '__main__':
     user_w_orders = asyncio.run(get_user_with_orders(1))
     assert user_w_orders == UserWithOrders(User(1, "user-1"), [1, 3, 10, 11])
+```

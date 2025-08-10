@@ -36,6 +36,8 @@ collections:
     output: true
   microcontrollers:
     output: true
+  python:
+    output: true
 
 # Build settings
 theme: minima

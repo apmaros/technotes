@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 ## Chaining
 
-```Python
+```python
 @dataclass
 class User:
     user_id: int

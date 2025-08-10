@@ -38,6 +38,7 @@ if __name__ == '__main__':
 ```
 
 ## Chaining
+
 ```Python
 @dataclass
 class User:

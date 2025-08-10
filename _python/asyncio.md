@@ -6,7 +6,9 @@ categories: asyncio
 tags: concurrency coroutines asyncio
 ---
 
-It is convenient to process I/O intensitve operation concurrently. If a method spends time waiting for response from I/O, we can safely assume that it is not doing anything useful and it can yield execution. In asynchronous programming, the event loop suspends the waiting task and registers interest in its I/O operation with the operating system. When the OS signals that the I/O is ready, the event loop resumes the task. In Python `asyncio` the execution of task execution is handled by a single main thread concurrently, not in parallel. For I/O-bound workloads this simplifies the execution and often can perform better than in parallel as it does not need to coordinate thread execution.
+It is convenient to process I/O intensitve operation concurrently. If a method spends time waiting for response from I/O, we can safely assume that it is not doing anything useful and it can yield execution. In asynchronous programming, the event loop suspends the waiting task and registers interest in its I/O operation with the operating system. 
+
+When the OS signals that the I/O is ready, the event loop resumes the task. In Python `asyncio` the execution of task execution is handled by a single main thread concurrently, not in parallel. For I/O-bound workloads this simplifies the execution and often can perform better than in parallel as it does not need to coordinate thread execution.
 
 
 ## Simple example

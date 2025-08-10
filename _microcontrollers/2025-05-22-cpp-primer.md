@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "CPP Notes"
-date:   05-22-2025
+date:   2025-05-22
 ---
 
 # Initialization

@@ -10,34 +10,32 @@ It is convenient to process I/O intensitve operation concurrently. If a method s
 
 When the OS signals that the I/O is ready, the event loop resumes the task. In Python `asyncio` the execution of task execution is handled by a single main thread concurrently, not in parallel. For I/O-bound workloads this simplifies the execution and often can perform better than in parallel as it does not need to coordinate thread execution.
 
+Asyncio is used to build a high level concurrency framework [couroutines](https://docs.python.org/3/library/asyncio-task.html#coroutine)
 
-## Simple example
+
+## Async Hello World
+Two keywords `async` and `await` are at the core of the coroutines. 
+
+- `async def foo()` - `async` keyword in front of the method makes the function awaitable. Calling such method returns a coroutine object, or an async generator if the method is a generator.
+- `await` - keyword that suspends the execution of the surrounding coroutine and passes controll to the event loop
+- `asyncio.run()` starts an event loop, runs the given coroutine until it completes, and then closes the event loop.
+
 
 ```python
 import asyncio
-import time
-from dataclasses import dataclass
-
-
-async def hello():
-    print("Hello")
-    await asyncio.sleep(5)
-    print("World")
-
 
 async def main():
-    await asyncio.gather(hello(), hello(), hello())
-
+    print('Hello ...')
+    await asyncio.sleep(1)
+    print('... World!')
 
 if __name__ == '__main__':
-    start = time.perf_counter()
-
-    asyncio.run(main())
-
-    print(f"{__file__} executed in {(time.perf_counter() - start):0.2f} seconds.")
+    asyncio.run(main()) 
 ```
 
 ## Chaining
+
+Chaining means that a one corouting is awaiting execution of another coroutine. It is common pattern when chaining API calls or fetching records from a database. Below is an example where we asyncronously fetch  a user and their orders and once both calls are completed, we return the combined result.
 
 ```python
 @dataclass
@@ -75,3 +73,7 @@ if __name__ == '__main__':
     user_w_orders = asyncio.run(get_user_with_orders(1))
     assert user_w_orders == UserWithOrders(User(1, "user-1"), [1, 3, 10, 11])
 ```
+
+# References
+- <https://docs.python.org/3/library/asyncio.html>
+- <https://realpython.com/async-io-python/>

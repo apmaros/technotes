@@ -308,3 +308,92 @@ for ( ; i < 10; ) // no init-statement or end-expression
     ++i;
 }
 ```
+
+# Compound Data Types
+
+C++ supports the following compound types:
+
+- Functions
+- C-style Arrays
+- Pointer types:
+    - Pointer to object
+    - Pointer to function
+- Pointer to member types:
+    - Pointer to data member
+    - Pointer to member function
+- Reference types:
+    - L-value references
+    - R-value references
+Enumerated types:
+    - Unscoped enumerations
+    - Scoped enumerations
+Class types:
+    - Structs
+    - Classes
+    - Unions
+
+## lvalue
+
+Expression that evaluates to an identifiable object or function (or bit-field). Entities with identities can be accessed via an identifier, reference, or pointer, and typically have a lifetime longer than a single expression or statement. They can be modifiable or non-modifiable (aka constants)
+
+## rvalue
+It is an expression that is not an lvalue. Rvalue expressions evaluate to a value. For example, we can break following statement `int x = 10;` into, x - lvalue and 10 - rvalue.
+
+## lvalue vs rvalue
+Following are rules of thumb to distinguish lvalues from rvalues:
+- lvalue (locator value): Has a identifiable memory address. If you can take its address using the ampersand (&) operator, it’s an lvalue. It usually has a name and persists beyond a single expression.
+- Rvalue expressions are those that evaluate to values, including literals and temporary objects that do not persist beyond the end of the expression.
+
+```c
+int return5()
+{
+    return 5;
+}
+
+int main()
+{
+    int x{ 5 }; // 5 is an rvalue expression
+    const double d{ 1.2 }; // 1.2 is an rvalue expression
+
+    int y { x }; // x is a modifiable lvalue expression
+    const double e { d }; // d is a non-modifiable lvalue expression
+    int z { return5() }; // return5() is an rvalue expression (since the result is returned by value)
+
+    int w { x + 1 }; // x + 1 is an rvalue expression
+    int q { static_cast<int>(d) }; // the result of static casting d to an int is an rvalue expression
+
+    return 0;
+}
+```
+
+## Lvalue References
+Also called as a _references_ act as an reference for existing values such as variables. The type of a reference determine what type of object it can reference. Lvalue reference type is identified by a ampersand `&` in the type specifier for example `int&`.
+
+We can create a variables holding lvalue references. We can use reference to modify object that is being referenced.
+
+```c
+#include <iostream>
+
+int main()
+{
+    int x { 5 }; // normal integer variable
+    int& ref { x }; // ref is now an alias for variable x
+
+    std::cout << x << ref << '\n'; // print 55
+
+    x = 6; // x now has value 6
+
+    std::cout << x << ref << '\n'; // prints 66
+
+    ref = 7; // the object being referenced (x) now has value 7
+
+    std::cout << x << ref << '\n'; // prints 77
+
+    return 0;
+}
+```
+
+Lifetime of a lvalue and its reference is independent. It can lead to a dangling reference when a object being reffered to is dead while its reference is still alive. This can lead to undefined behavior.
+
+References are not objects and they don't occupy memory. Wherever possible, they are replaced by compiler with the referenced value.
+

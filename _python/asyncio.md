@@ -38,6 +38,9 @@ if __name__ == '__main__':
 Chaining means that a one corouting is awaiting execution of another coroutine. It is common pattern when chaining API calls or fetching records from a database. Below is an example where we asyncronously fetch  a user and their orders and once both calls are completed, we return the combined result.
 
 ```python
+import asyncio
+from dataclasses import dataclass
+
 @dataclass
 class User:
     user_id: int

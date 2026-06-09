@@ -397,3 +397,111 @@ Lifetime of a lvalue and its reference is independent. It can lead to a dangling
 
 References are not objects and they don't occupy memory. Wherever possible, they are replaced by compiler with the referenced value.
 
+Passing an argument to a function can be done by:
+- copy a value - copying the value
+- pass a value - passing a reference to the method instead of the value
+
+## Pass by Reference
+
+Primitive types are often as small as few bytes. For those it is more efficient to pass the value instead of passing their reference. This is not the case for more complex types such as strings. We want to limit unnecessary creating copies of classes wherever possible.
+
+Passing by reference is defined by declaring a reference rather than a value type parameter. When a value is passed to the function it is bound to the reference instead to the value.
+
+```c
+#include <iostream>
+
+void printMe(int& xRef, int x) {
+    std::cout << &xRef << " - " << &x << "\n";
+}
+
+void addOne(int& x) {
+    ++x; // modifies object
+}
+
+int main() {
+    int x { 5 };
+    std::cout << &x << "\n";
+    printMe(x, x);
+    addOne(x);
+    std::cout << x << "\n";
+}
+// Output:
+// 0x16b66f56c
+// 0x16b66f56c - 0x16b66f544
+// 6
+```
+
+In above example you can see that the `x` in the main function has the same address as the `xRef` in printMe function.
+Because `x` in printMe function was copied it has different address.
+
+Pass by reference enable us to modify the underlying value. Because the reference enables us to mutate the value, we can not pass references to constants. This linmits our use of references.
+
+# Pointers
+
+We use `&` to get address to value - once we have an address, we can use a dereference operator `*` to access to access the value at given address.
+
+```c
+#include <iostream>
+
+int main() {
+    int x { 5 };
+    int* ref { &x };
+
+    std::cout  << "x=" << x << "\nmemory_address=" << ref << "\nref_val=" << *ref << "\n";
+    return 0;
+}
+```
+
+*A pointer is an object that holds a memory address as its value.*
+
+Similar to references, we use a pointer type by adding a start as a postfix to the value type, for example `int*` pointer holds address to `int` value.
+
+A pointer is a variable, hence it is not initialized by default. Uninitialized pointer is called a wild pointer, containing a garbage address. It is a best practice to always initialize a pointer to a known value.
+
+Pointer assignment can:
+- Change what it is pointing at
+  * By assigning a new address to the pointer
+- Change the value being pointed at
+  * By assigning a dereferenced pointer a new value
+
+```c
+#include <iostream>
+
+int main() {
+
+    int x { 5 };
+    int* ref { &x };
+
+    std::cout  << "x=" << x << "\nmemory_address=" << ref << "\nref_val=" << *ref << "\n";
+
+    *ref = 6;
+
+    std::cout  << "x=" << x << "\nmemory_address=" << ref << "\nref_val=" << *ref << "\n";
+
+    int y { 7 };
+    ref = &y;
+
+    std::cout  << "x=" << x << "\nmemory_address=" << ref << "\nref_val=" << *ref << "\n";
+}
+```
+
+## References and Pointers
+
+Pointers behave similarly to referfences. They store address to a value and can be dereferenced to the value. They are not the same and have following differences:
+
+| | Pointer | Reference |
+|----|----|----|
+| Holds memory address | explicitly  | internally |
+| Indirection is managed | manually (`*`, `&`) | by compiler |
+| Can be null | Yes | No |
+| can be reseated | Yes | No |
+| Syntax overhead | `*ptr`, `ptr->` | No |
+| Is a class | Yes | No |
+
+It is preffered to use lvalue references instead of pointers. Here is a decision table to help with choice:
+
+
+- Is null a valid state?          → Pointer
+- Can the target change?          → Pointer
+- Interfacing with C?             → Pointer
+- Otherwise                       → Reference

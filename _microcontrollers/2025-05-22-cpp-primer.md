@@ -505,3 +505,48 @@ It is preffered to use lvalue references instead of pointers. Here is a decision
 - Can the target change?          → Pointer
 - Interfacing with C?             → Pointer
 - Otherwise                       → Reference
+
+## Pass by Reference and Address
+
+When dealing with objects larger than few bytes, it is more efficient to pass them by reference, or address.
+
+```c
+#include <iostream>
+#include <string>
+
+void printByValue(std::string val) // The function parameter is a copy of str
+{
+    std::cout << val << '\n'; // print the value via the copy
+}
+
+void printByReference(const std::string& ref) // The function parameter is a reference that binds to str
+{
+    std::cout << ref << '\n'; // print the value via the reference
+}
+
+void printByAddress(const std::string* ptr) // The function parameter is a reference that binds to str
+{
+    std::cout << *ptr << '\n'; // print the value via the reference
+}
+
+int main()
+{
+    std::string str{ "Hello, world!" };
+
+    printByValue(str); // pass str by value, makes a copy of str
+    printByReference(str); // pass str by reference, does not make a copy of str
+    printByAddress(&str);
+
+    return 0;
+}
+```
+
+References are idiomatic to C++, hence we should use pass by reference unless there is a specific reason to pass an address. Some of the benefits of pass by reference are:
+- The argument always exists - we don't need to check nullability
+- The syntax is cleaner - the caller can pass variable normally
+
+We use pass by addresss when:
+- We want to communicate that the argument can be null
+- We need to reseat the pointer - point the pointer to another object, e.g. in linked list
+
+The modern C++ guideline (C++ Core Guidelines: F.16/F.60) sums it up well: use a reference when the parameter must exist; use a pointer when it's optional.
